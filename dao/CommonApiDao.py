@@ -9,10 +9,5 @@ class ApiDao(abc.ABC):
     def model(self):
         pass
 
-    @property
-    @abc.abstractmethod
-    def model_id(self):
-        pass
-
     def get_all(self):
         return self.model.query.all()

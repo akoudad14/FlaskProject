@@ -1,6 +1,7 @@
 from dotenv import load_dotenv
 import os
 from flask import Flask, Blueprint
+from api.endpoints.episode import episode_ns
 from api.endpoints.user import user_ns
 from api.api import api
 from database import db
@@ -15,6 +16,7 @@ app.config.from_object(env_config)
 def initialize_app(flask_app):
     blueprint = Blueprint('api', __name__, url_prefix='/api')
     api.init_app(blueprint)
+    api.add_namespace(episode_ns)
     api.add_namespace(user_ns)
     flask_app.register_blueprint(blueprint)
     db.init_app(flask_app)
