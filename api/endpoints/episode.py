@@ -3,7 +3,7 @@ from api.api import api
 from Controller.EpisodeController import EpisodeController
 from flask import jsonify
 
-episode_ns = api.namespace('episode')
+episode_ns = api.namespace('episodes')
 
 
 @episode_ns.route('/')
@@ -14,5 +14,6 @@ class Users(Resource):
         self._controller = EpisodeController()
 
     def get(self):
+        """Function to get all the episodes in the database"""
         episodes = self._controller.get_all()
         return jsonify(episodes)

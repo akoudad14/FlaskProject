@@ -14,5 +14,6 @@ class Users(Resource):
         self._controller = UserController()
 
     def get(self):
+        """Function to get all the users in the database"""
         users = self._controller.get_all()
         return jsonify(users)
