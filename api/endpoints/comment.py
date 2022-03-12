@@ -8,10 +8,16 @@ from Controller.ApiController import ApiController
 comment_ns = api.namespace('comments')
 
 comment_model = comment_ns.model('Comment', {
-    'comment': fields.String,
-    'character_id': fields.Integer,
-    'episode_id': fields.Integer,
-    'character_episode_id': fields.Integer
+    'comment': fields.String(
+        required=True,
+        description='The comment to save.'),
+    'character_id': fields.Integer(
+        description=r"Character id to associate the comment with."),
+    'episode_id': fields.Integer(
+        description=r"Episode id to associate the comment with."),
+    'character_episode_id': fields.Integer(
+        description=r"The id of a character from an episode to "
+                    r"associate the comment with."),
 })
 
 
@@ -50,9 +56,3 @@ class Comments(Resource):
 
     def delete(self, id: int) -> Response:
         pass
-
-    def post(self) -> Response:
-        return Response('Comment created', 201)
-
-
-

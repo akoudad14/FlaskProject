@@ -1,6 +1,5 @@
 
 import abc
-import json
 
 from Service.CharacterService import CharacterService
 from Service.CommentService import CommentService
@@ -24,8 +23,7 @@ class ApiController(abc.ABC):
         comment_service = CommentService()
         return comment_service.get_all()
 
-    def add_comment(self, comment_json) -> bool:
-        comment_dict = json.loads(comment_json)
+    def add_comment(self, comment_dict) -> bool:
         comment_service = CommentService()
         comment_service.insert(comment_dict)
         return True
