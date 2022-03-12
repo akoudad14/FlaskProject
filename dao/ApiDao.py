@@ -21,12 +21,12 @@ class ApiDao(abc.ABC):
         db.session.commit()
 
     def get_one(self, obj_id):
-        return self.model.query.filter(self.model.id == obj_id).one()
+        return self.model.query.filter(self.model.id == obj_id).first_or_404()
 
     def update(self, obj_id, **kwargs):
         obj = self.get_one(obj_id)
         for attr, value in kwargs.items():
-            obj[attr] = value
+            obj.__setattr__(attr, value)
         db.session.commit()
 
     def delete(self, obj_id):

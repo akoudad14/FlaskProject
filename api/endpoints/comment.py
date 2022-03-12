@@ -35,6 +35,7 @@ class Comments(Resource):
 
     @comment_ns.doc(body=comment_model)
     def post(self) -> Response:
+        """Creates comment in the database."""
         self._controller.add_comment(request.json)
         return Response('Comment created', 201)
 
@@ -47,12 +48,15 @@ class Comments(Resource):
         self._controller = ApiController()
 
     def get(self, id: int) -> Response:
-        """Retrieves all comments from the database"""
-        comments = self._controller.get_all_comments()
-        return jsonify(comments)
+        """Retrieves one comment from the database"""
+        comment = self._controller.get_one_comment(id)
+        return jsonify(comment)
 
+    @api.doc(body=comment_model)
     def put(self, id: int) -> Response:
-        pass
+        self._controller.update_comment(id, request.json)
+        return Response('Comment updated', 204)
 
     def delete(self, id: int) -> Response:
-        pass
+        self._controller.delete_comment(id)
+        return Response('Comment deleted', 204)

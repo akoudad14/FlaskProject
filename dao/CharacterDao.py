@@ -1,5 +1,5 @@
 
-from dao.CommonApiDao import ApiDao
+from dao.ApiDao import ApiDao
 from database.models.Character import Character
 
 

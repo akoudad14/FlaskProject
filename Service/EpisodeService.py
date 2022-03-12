@@ -1,7 +1,7 @@
 
 from dao.EpisodeDao import EpisodeDao
 from database.schema.EpisodeSchema import EpisodeSchema
-from Service.CommonApiService import ApiService
+from Service.ApiService import ApiService
 
 
 class EpisodeService(ApiService):

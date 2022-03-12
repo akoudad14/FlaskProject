@@ -23,7 +23,18 @@ class ApiController(abc.ABC):
         comment_service = CommentService()
         return comment_service.get_all()
 
-    def add_comment(self, comment_dict) -> bool:
+    def add_comment(self, comment_dict):
         comment_service = CommentService()
         comment_service.insert(comment_dict)
-        return True
+
+    def get_one_comment(self, comment_id: int) -> str:
+        comment_service = CommentService()
+        return comment_service.get_one(comment_id)
+
+    def update_comment(self, comment_id: int, comment_dict: dict):
+        comment_service = CommentService()
+        comment_service.update(comment_id, **comment_dict)
+
+    def delete_comment(self, comment_id: int):
+        comment_service = CommentService()
+        comment_service.delete(comment_id)

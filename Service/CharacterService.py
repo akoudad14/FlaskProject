@@ -1,7 +1,7 @@
 
 from dao.CharacterDao import CharacterDao
 from database.schema.CharacterSchema import CharacterSchema
-from Service.CommonApiService import ApiService
+from Service.ApiService import ApiService
 
 
 class CharacterService(ApiService):
