@@ -3,8 +3,9 @@ from dotenv import load_dotenv
 from flask import Flask, Blueprint
 import os
 
-from api.endpoints.episode import episode_ns
 from api.endpoints.character import character_ns
+from api.endpoints.comment import comment_ns
+from api.endpoints.episode import episode_ns
 from api.api import api
 from database import db
 
@@ -20,6 +21,7 @@ def initialize_app(flask_app):
     api.init_app(blueprint)
     api.add_namespace(episode_ns)
     api.add_namespace(character_ns)
+    api.add_namespace(comment_ns)
     flask_app.register_blueprint(blueprint)
     db.init_app(flask_app)
 

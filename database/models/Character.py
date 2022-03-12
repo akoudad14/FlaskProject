@@ -12,4 +12,5 @@ class Character(db.Model):
     type = db.Column(db.String)
     gender = db.Column(db.String)
 
+    comments = db.relationship('Comment', backref='character')
     episodes = db.relationship('Episode', secondary=character_episode)

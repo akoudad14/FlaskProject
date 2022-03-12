@@ -3,7 +3,7 @@ from flask import jsonify, Response
 from flask_restplus import Resource
 
 from api.api import api
-from Controller.EpisodeController import EpisodeController
+from Controller.ApiController import ApiController
 
 episode_ns = api.namespace('episodes')
 
@@ -13,9 +13,9 @@ class Episodes(Resource):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self._controller = EpisodeController()
+        self._controller = ApiController()
 
     def get(self) -> Response:
         """Retrieves all episodes from the database"""
-        episodes = self._controller.get_all()
+        episodes = self._controller.get_all_episodes()
         return jsonify(episodes)
