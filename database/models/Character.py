@@ -1,9 +1,9 @@
 
 from database import db
-from database.models.EpisodeUser import episode_user
+from database.models.CharacterEpisode import character_episode
 
 
-class User(db.Model):
+class Character(db.Model):
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String)
@@ -12,4 +12,4 @@ class User(db.Model):
     type = db.Column(db.String)
     gender = db.Column(db.String)
 
-    episodes = db.relationship('Episode', secondary=episode_user)
+    episodes = db.relationship('Episode', secondary=character_episode)

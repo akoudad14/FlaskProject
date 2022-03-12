@@ -1,6 +1,7 @@
 
 from unittest import TestCase
 from unittest.mock import patch, mock_open, Mock
+
 from data import import_data
 
 
@@ -29,31 +30,30 @@ class TestImport(TestCase):
                                         episode=episode_raw['episode'])
         self.assertEqual(episodes, [None, episode_mock.return_value])
 
-    @patch("data.import_data.User")
+    @patch("data.import_data.Character")
     @patch("data.import_data.json.load")
     @patch("builtins.open", new_callable=mock_open)
-    def test_create_users(
+    def test_create_characters(
             self,
             open_mock: Mock,
             load_mock: Mock,
-            user_mock: Mock):
-        user_raw = {"id": 1, "name": "Rick Sanchez", "status": "Alive",
-                    "species": "Human", "type": "", "gender": "Male",
-                    "episode": [1]}
+            character_mock: Mock):
+        character_raw = {"id": 1, "name": "Rick Sanchez", "status": "Alive",
+                         "species": "Human", "type": "", "gender": "Male",
+                         "episode": [1]}
         episodes = [None, Mock(), Mock()]
-        load_mock.return_value = [user_raw]
+        load_mock.return_value = [character_raw]
         file_name = Mock()
 
-        users = import_data.create_users(file_name, episodes)
+        characters = import_data.create_characters(file_name, episodes)
 
         open_mock.assert_called_with(file_name, 'r')
         load_mock.assert_called_with(open_mock.return_value)
-        user_mock.assert_called_with(id=user_raw['id'],
-                                     name=user_raw['name'],
-                                     status=user_raw['status'],
-                                     species=user_raw['species'],
-                                     type=user_raw['type'],
-                                     gender=user_raw['gender'])
-        self.assertEqual(users, [user_mock.return_value])
-        users[0].episodes.append.assert_called_with(episodes[1])
-
+        character_mock.assert_called_with(id=character_raw['id'],
+                                          name=character_raw['name'],
+                                          status=character_raw['status'],
+                                          species=character_raw['species'],
+                                          type=character_raw['type'],
+                                          gender=character_raw['gender'])
+        self.assertEqual(characters, [character_mock.return_value])
+        characters[0].episodes.append.assert_called_with(episodes[1])

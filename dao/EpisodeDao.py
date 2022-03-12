@@ -1,6 +1,6 @@
 
-from database.models.Episode import Episode
 from dao.CommonApiDao import ApiDao
+from database.models.Episode import Episode
 
 
 class EpisodeDao(ApiDao):

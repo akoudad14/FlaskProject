@@ -10,5 +10,5 @@ class ApiDao(abc.ABC):
         pass
 
     def get_all(self) -> list:
-        """Function to get all specific objects in the database"""
+        """Retrieves all specific objects from the database."""
         return self.model.query.all()

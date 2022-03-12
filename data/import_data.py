@@ -1,37 +1,38 @@
 
 import argparse
 import json
-from database.models.Episode import Episode
-from database.models.User import User
+
 from app import app
 from database import db
+from database.models.Character import Character
+from database.models.Episode import Episode
 
 app.app_context().push()
 
 db.init_app(app)
 
 
-def create_users(file_users: str, episodes: list):
-    """Create users based on the User's model.
+def create_characters(file_characters: str, episodes: list):
+    """Creates characters based on the Character model.
 
-    :param file_users: File containing users (JSON format).
+    :param file_characters: File containing characters (JSON format).
     :param episodes: List of Episodes (based on Episode's model).
-    :return: List of Users.
+    :return: List of Characters.
     """
-    with open(file_users, 'r') as fp:
-        users_raw = json.load(fp)
-    users = []
-    for user_raw in users_raw:
-        episode_ids = set(user_raw.pop('episode'))
-        user = User(**user_raw)
+    with open(file_characters, 'r') as fp:
+        characters_raw = json.load(fp)
+    characters = []
+    for character_raw in characters_raw:
+        episode_ids = set(character_raw.pop('episode'))
+        character = Character(**character_raw)
         for episode_id in episode_ids:
-            user.episodes.append(episodes[episode_id])
-        users.append(user)
-    return users
+            character.episodes.append(episodes[episode_id])
+        characters.append(character)
+    return characters
 
 
 def create_episodes(file_episodes: str) -> list:
-    """Create episodes based on the Episode's model.
+    """Creates episodes based on the Episode model.
 
     :param file_episodes: File containing episodes (JSON format).
     :return: List of Episodes.
@@ -46,23 +47,23 @@ def create_episodes(file_episodes: str) -> list:
     return episodes
 
 
-def store(file_users: str, file_episodes: str):
-    """Store users and episodes.
+def store(file_characters: str, file_episodes: str):
+    """Stores characters and episodes.
 
-    :param file_users: File containing users (JSON format).
+    :param file_characters: File containing characters (JSON format).
     :param file_episodes: File containing episodes (JSON format).
     """
     episodes = create_episodes(file_episodes)
-    users = create_users(file_users, episodes)
-    db.session.add_all(users)
+    characters = create_characters(file_characters, episodes)
+    db.session.add_all(characters)
     db.session.commit()
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument("--users", "-u",
+    parser.add_argument("--characters", "-c",
                         default="rick_morty-characters_v1.json")
     parser.add_argument("--episodes", "-e",
                         default="rick_morty-episodes_v1.json")
     args = parser.parse_args()
-    store(args.users, args.episodes)
+    store(args.characters, args.episodes)
