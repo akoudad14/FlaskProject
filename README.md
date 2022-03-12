@@ -46,4 +46,4 @@ python app.py
 
 Now you can access to http://127.0.0.1:5000/api/doc and see all possible calls.
 
-![alt text](C:\Users\makou\OneDrive\Images\Captures d’écran\jellysmack_api_swagger.png)
+![alt text](jellysmack_api_swagger.png)
