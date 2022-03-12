@@ -6,5 +6,5 @@ from Service.UserService import UserService
 class UserController(ApiController):
     
     @property
-    def service(self):
+    def service(self) -> UserService:
         return UserService()

@@ -1,6 +1,5 @@
 
 from database import db
-from database.models.EpisodeUser import episode_user
 
 
 class Episode(db.Model):

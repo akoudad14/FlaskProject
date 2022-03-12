@@ -1,7 +1,7 @@
 from flask_restplus import Resource
 from api.api import api
 from Controller.UserController import UserController
-from flask import jsonify
+from flask import jsonify, Response
 
 user_ns = api.namespace('users')
 
@@ -13,7 +13,7 @@ class Users(Resource):
         super().__init__(*args, **kwargs)
         self._controller = UserController()
 
-    def get(self):
+    def get(self) -> Response:
         """Function to get all the users in the database"""
         users = self._controller.get_all()
         return jsonify(users)

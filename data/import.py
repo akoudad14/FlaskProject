@@ -12,6 +12,12 @@ db.init_app(app)
 
 
 def create_users(file_users: str, episodes: list):
+    """Create users based on the User's model.
+
+    :param file_users: File containing users (JSON format).
+    :param episodes: List of Episodes (based on Episode's model).
+    :return: List of Users.
+    """
     with open(file_users, 'r') as fp:
         users_raw = json.load(fp)
     users = []
@@ -24,7 +30,12 @@ def create_users(file_users: str, episodes: list):
     return users
 
 
-def create_episodes(file_episodes: str):
+def create_episodes(file_episodes: str) -> list:
+    """Create episodes based on the Episode's model.
+
+    :param file_episodes: File containing episodes (JSON format).
+    :return: List of Episodes.
+    """
     with open(file_episodes, 'r') as fp:
         episodes_raw = json.load(fp)
     episodes = [None] * (len(episodes_raw) + 1)
@@ -36,6 +47,11 @@ def create_episodes(file_episodes: str):
 
 
 def store(file_users: str, file_episodes: str):
+    """Store users and episodes.
+
+    :param file_users: File containing users (JSON format).
+    :param file_episodes: File containing episodes (JSON format).
+    """
     episodes = create_episodes(file_episodes)
     users = create_users(file_users, episodes)
     db.session.add_all(users)

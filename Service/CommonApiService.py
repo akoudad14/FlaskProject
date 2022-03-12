@@ -14,6 +14,7 @@ class ApiService(abc.ABC):
     def schema(self):
         pass
 
-    def get_all(self):
+    def get_all(self) -> list:
+        """Function to get all specific objects in the database."""
         objects = self.dao.get_all()
         return [self.schema.dump(obj) for obj in objects]
