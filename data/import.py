@@ -11,16 +11,9 @@ app.app_context().push()
 db.init_app(app)
 
 
-def store(file_users: str, file_episodes):
+def create_users(file_users: str, episodes: list):
     with open(file_users, 'r') as fp:
         users_raw = json.load(fp)
-    with open(file_episodes, 'r') as fp:
-        episodes_raw = json.load(fp)
-    episodes = [None] * (len(episodes_raw) + 1)
-    for episode_raw in episodes_raw:
-        episode_raw.pop('characters')
-        episode = Episode(**episode_raw)
-        episodes[episode.id] = episode
     users = []
     for user_raw in users_raw:
         episode_ids = set(user_raw.pop('episode'))
@@ -28,6 +21,23 @@ def store(file_users: str, file_episodes):
         for episode_id in episode_ids:
             user.episodes.append(episodes[episode_id])
         users.append(user)
+    return users
+
+
+def create_episodes(file_episodes: str):
+    with open(file_episodes, 'r') as fp:
+        episodes_raw = json.load(fp)
+    episodes = [None] * (len(episodes_raw) + 1)
+    for episode_raw in episodes_raw:
+        episode_raw.pop('characters')
+        episode = Episode(**episode_raw)
+        episodes[episode.id] = episode
+    return episodes
+
+
+def store(file_users: str, file_episodes: str):
+    episodes = create_episodes(file_episodes)
+    users = create_users(file_users, episodes)
     db.session.add_all(users)
     db.session.commit()
 
