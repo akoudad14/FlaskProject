@@ -1,5 +1,6 @@
 
 from database import db
+from database.models.CharacterComment import character_comment
 from database.models.CharacterEpisode import character_episode
 from database.models.Comment import Comment
 from database.models.Episode import Episode
@@ -14,5 +15,5 @@ class Character(db.Model):
     type = db.Column(db.String)
     gender = db.Column(db.String)
 
-    comments = db.relationship(Comment, backref='character')
+    comments = db.relationship(Comment, secondary=character_comment)
     episodes = db.relationship(Episode, secondary=character_episode)
