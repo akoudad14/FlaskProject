@@ -7,6 +7,6 @@ class EpisodeSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Episode
 
-    comments = ma.Nested("CommentSchema", many=True)
+    comments = ma.Nested("CommentSchema", many=True, only=('id',))
     characters = ma.Nested("CharacterSchema", many=True, only=('id',))
 

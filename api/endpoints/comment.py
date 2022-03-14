@@ -14,10 +14,7 @@ comment_model = comment_ns.model('Comment', {
     'character_id': fields.Integer(
         description=r"Character id to associate the comment with."),
     'episode_id': fields.Integer(
-        description=r"Episode id to associate the comment with."),
-    'character_episode_id': fields.Integer(
-        description=r"The id of a character from an episode to "
-                    r"associate the comment with."),
+        description=r"Episode id to associate the comment with.")
 })
 
 

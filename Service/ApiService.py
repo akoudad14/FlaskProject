@@ -22,9 +22,12 @@ class ApiService(abc.ABC):
     def insert(self, comment_dict):
         self.dao.insert(**comment_dict)
 
-    def get_one(self, obj_id):
+    def get_one(self, obj_id, dump=True):
         obj = self.dao.get_one(obj_id)
-        return self.schema.dump(obj)
+        if dump:
+            return self.schema.dump(obj)
+        else:
+            return obj
 
     def update(self, obj_id, **kwargs):
         self.dao.update(obj_id, **kwargs)
