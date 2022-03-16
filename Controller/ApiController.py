@@ -23,7 +23,7 @@ class ApiController(abc.ABC):
         comment_service = CommentService()
         return comment_service.get_all()
 
-    def add_comment(self, comment_dict):
+    def add_comment(self, comment_dict: dict):
         comment_service = CommentService()
         if 'character_id' in comment_dict:
             character_id = comment_dict.pop('character_id')

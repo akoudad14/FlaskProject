@@ -27,9 +27,6 @@ class ApiDao(abc.ABC):
     def update(self, obj_id, **kwargs):
         obj = self.get_one(obj_id)
         for attr, value in kwargs.items():
-            obj_value = obj.__getattribute__(attr)
-            if type(value) is list:
-                value = obj_value + value
             obj.__setattr__(attr, value)
         db.session.commit()
 
