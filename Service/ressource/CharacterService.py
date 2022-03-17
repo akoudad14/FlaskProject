@@ -1,6 +1,6 @@
 
 from database.schema.CharacterSchema import CharacterSchema
-from Service.RessourceService import RessourceService
+from Service.ressource.RessourceService import RessourceService
 
 
 class CharacterService(RessourceService):

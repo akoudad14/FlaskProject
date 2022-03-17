@@ -3,6 +3,7 @@ from flask import jsonify, Response
 from flask_restplus import Resource
 
 from api.api import api
+from api.endpoints.auth import token_required
 from Controller.RessourceController import RessourceController
 
 character_ns = api.namespace('characters')
@@ -20,13 +21,14 @@ parser.add_argument('comment_ids', type=int, action='append')
 
 
 @character_ns.route('/')
-class Characters(Resource):
+class Character(Resource):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self._controller = RessourceController()
 
     @api.expect(parser)
+    @token_required
     def get(self) -> Response:
         """Retrieves characters from the database."""
         filters = {k: v for k, v in parser.parse_args().items()

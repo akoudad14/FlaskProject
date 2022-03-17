@@ -1,6 +1,6 @@
 
 from database.schema.CommentSchema import CommentSchema
-from Service.RessourceService import RessourceService
+from Service.ressource.RessourceService import RessourceService
 
 
 class CommentService(RessourceService):

@@ -4,8 +4,8 @@ import json
 
 from app import app
 from database import db
-from database.models.Character import Character
-from database.models.Episode import Episode
+from database.models.ressource.Character import Character
+from database.models.ressource.Episode import Episode
 
 app.app_context().push()
 

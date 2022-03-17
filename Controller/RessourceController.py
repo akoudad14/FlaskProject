@@ -4,9 +4,9 @@ import abc
 from database.schema.CharacterSchema import CharacterSchema
 from database.schema.CommentSchema import CommentSchema
 from database.schema.EpisodeSchema import EpisodeSchema
-from Service.CharacterService import CharacterService
-from Service.CommentService import CommentService
-from Service.EpisodeService import EpisodeService
+from Service.ressource.CharacterService import CharacterService
+from Service.ressource.CommentService import CommentService
+from Service.ressource.EpisodeService import EpisodeService
 
 
 class RessourceController(abc.ABC):

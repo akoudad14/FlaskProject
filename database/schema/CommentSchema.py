@@ -1,6 +1,6 @@
 
 from database import ma
-from database.models.Comment import Comment
+from database.models.ressource.Comment import Comment
 
 
 class CommentSchema(ma.SQLAlchemyAutoSchema):

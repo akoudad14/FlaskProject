@@ -2,9 +2,9 @@
 import abc
 
 from database import db
-from database.models.Character import Character
-from database.models.Comment import Comment
-from database.models.Episode import Episode
+from database.models.ressource.Character import Character
+from database.models.ressource.Comment import Comment
+from database.models.ressource.Episode import Episode
 
 
 class RessourceDao(abc.ABC):

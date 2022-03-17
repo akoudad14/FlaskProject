@@ -1,9 +1,9 @@
 
 from database import db
-from database.models.CharacterComment import character_comment
-from database.models.CharacterEpisode import character_episode
-from database.models.Comment import Comment
-from database.models.Episode import Episode
+from database.models.ressource.CharacterComment import character_comment
+from database.models.ressource.CharacterEpisode import character_episode
+from database.models.ressource.Comment import Comment
+from database.models.ressource.Episode import Episode
 
 
 class Character(db.Model):

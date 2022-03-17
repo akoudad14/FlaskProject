@@ -1,6 +1,6 @@
 
 from database import ma
-from database.models.Episode import Episode
+from database.models.ressource.Episode import Episode
 
 
 class EpisodeSchema(ma.SQLAlchemyAutoSchema):

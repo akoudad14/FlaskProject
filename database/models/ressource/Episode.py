@@ -1,7 +1,7 @@
 
 from database import db
-from database.models.CharacterEpisode import character_episode
-from database.models.EspisodeComment import episode_comment
+from database.models.ressource.CharacterEpisode import character_episode
+from database.models.ressource.EspisodeComment import episode_comment
 
 
 class Episode(db.Model):

@@ -1,6 +1,6 @@
 
 from database.schema.EpisodeSchema import EpisodeSchema
-from Service.RessourceService import RessourceService
+from Service.ressource.RessourceService import RessourceService
 
 
 class EpisodeService(RessourceService):

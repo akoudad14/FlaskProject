@@ -1,6 +1,6 @@
 
 from database import ma
-from database.models.Character import Character
+from database.models.ressource.Character import Character
 
 
 class CharacterSchema(ma.SQLAlchemyAutoSchema):
