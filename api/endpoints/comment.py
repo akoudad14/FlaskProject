@@ -18,6 +18,7 @@ comment_model = comment_ns.model('Comment', {
 })
 
 
+
 @comment_ns.route('/')
 class Comments(Resource):
 
@@ -27,7 +28,12 @@ class Comments(Resource):
 
     def get(self) -> Response:
         """Retrieves all comments from the database"""
-        comments = self._controller.get_all_comments()
+        start = int(request.args.get('start'), 1)
+        try:
+            limit = int(request.args.get('limit'))
+        except KeyError:
+            limit = None
+        comments = self._controller.get_comments(start, limit)
         return jsonify(comments)
 
     @comment_ns.doc(body=comment_model)

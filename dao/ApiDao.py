@@ -11,8 +11,13 @@ class ApiDao(abc.ABC):
     def model(self):
         pass
 
-    def get_all(self) -> list:
-        """Retrieves all specific objects from the database."""
+    def get_objects(self, page: int = 1, page_size: int = None) -> list:
+        """Retrieves specific objects from the database."""
+        query = self.model.query
+        if page_size:
+            query = query.limit(page_size)
+            if page:
+                query = query.offset(page * page_size)
         return self.model.query.all()
 
     def insert(self, **kwargs):

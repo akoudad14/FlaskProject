@@ -14,9 +14,9 @@ class ApiService(abc.ABC):
     def schema(self):
         pass
 
-    def get_all(self) -> list:
-        """Retrieves all specific objects from the database."""
-        objects = self.dao.get_all()
+    def get_objects(self, start: int = 1, limit: int = None) -> list:
+        """Retrieves specific objects from the database."""
+        objects = self.dao.get_objects(start, limit)
         return [self.schema.dump(obj) for obj in objects]
 
     def insert(self, comment_dict):

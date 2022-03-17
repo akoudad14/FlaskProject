@@ -8,20 +8,20 @@ from Service.EpisodeService import EpisodeService
 
 class ApiController(abc.ABC):
 
-    def get_all_characters(self) -> list:
-        """Retrieves all characters from the database."""
+    def get_all_characters(self, start: int = 1, limit: int = None) -> list:
+        """Retrieves characters from the database."""
         character_service = CharacterService()
-        return character_service.get_all()
+        return character_service.get_objects(start, limit)
 
     def get_all_episodes(self) -> list:
         """Retrieves all episodes from the database."""
         episode_service = EpisodeService()
-        return episode_service.get_all()
+        return episode_service.get_objects()
 
-    def get_all_comments(self) -> list:
+    def get_comments(self, start: int = 1, limit: int = None) -> list:
         """Retrieves all comments from the database."""
         comment_service = CommentService()
-        return comment_service.get_all()
+        return comment_service.get_objects(start, limit)
 
     def add_comment(self, comment_dict):
         comment_service = CommentService()
