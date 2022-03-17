@@ -1,15 +1,22 @@
 
-from flask import jsonify, Response, request
+from flask import jsonify, Response
 from flask_restplus import Resource
 
 from api.api import api
-from Controller.ApiController import ApiController
+from Controller.RessourceController import RessourceController
 
 character_ns = api.namespace('characters')
 
 parser = api.parser()
 parser.add_argument('start', type=int)
 parser.add_argument('limit', type=int)
+parser.add_argument('name', type=str)
+parser.add_argument('status', type=str)
+parser.add_argument('species', type=str)
+parser.add_argument('type', type=str)
+parser.add_argument('gender', type=str)
+parser.add_argument('episode_ids', type=int, action='append')
+parser.add_argument('comment_ids', type=int, action='append')
 
 
 @character_ns.route('/')
@@ -17,15 +24,20 @@ class Characters(Resource):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self._controller = ApiController()
+        self._controller = RessourceController()
 
     @api.expect(parser)
     def get(self) -> Response:
         """Retrieves characters from the database."""
-        start = int(request.args.get('start', 0))
+        filters = {k: v for k, v in parser.parse_args().items()
+                   if v is not None}
         try:
-            limit = int(request.args.get('limit'))
-        except TypeError:
+            start = int(filters.pop('start'))
+        except KeyError:
+            start = None
+        try:
+            limit = int(filters.pop('limit'))
+        except KeyError:
             limit = None
-        characters = self._controller.get_characters(start, limit)
+        characters = self._controller.get_characters(start, limit, **filters)
         return jsonify(characters)

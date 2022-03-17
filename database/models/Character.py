@@ -15,5 +15,7 @@ class Character(db.Model):
     type = db.Column(db.String)
     gender = db.Column(db.String)
 
-    comments = db.relationship(Comment, secondary=character_comment)
-    episodes = db.relationship(Episode, secondary=character_episode)
+    comments = db.relationship(Comment, secondary=character_comment,
+                               lazy='dynamic')
+    episodes = db.relationship(Episode, secondary=character_episode,
+                               lazy='dynamic')

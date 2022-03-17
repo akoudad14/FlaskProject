@@ -3,7 +3,7 @@ from flask import jsonify, Response, request
 from flask_restplus import Resource, fields
 
 from api.api import api
-from Controller.ApiController import ApiController
+from Controller.RessourceController import RessourceController
 
 comment_ns = api.namespace('comments')
 
@@ -27,6 +27,7 @@ update_comment_model = comment_ns.model('Comment update', {
 parser = api.parser()
 parser.add_argument('start', type=int)
 parser.add_argument('limit', type=int)
+parser.add_argument('comment', type=str)
 
 
 @comment_ns.route('/')
@@ -34,17 +35,22 @@ class Comments(Resource):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self._controller = ApiController()
+        self._controller = RessourceController()
 
     @api.expect(parser)
     def get(self) -> Response:
         """Retrieves comments from the database."""
-        start = int(request.args.get('start', 0))
+        filters = {k: v for k, v in parser.parse_args().items()
+                   if v is not None}
         try:
-            limit = int(request.args.get('limit'))
-        except TypeError:
+            start = int(filters.pop('start'))
+        except KeyError:
+            start = None
+        try:
+            limit = int(filters.pop('limit'))
+        except KeyError:
             limit = None
-        comments = self._controller.get_comments(start, limit)
+        comments = self._controller.get_comments(start, limit, **filters)
         return jsonify(comments)
 
     @comment_ns.doc(body=insert_comment_model)
@@ -59,11 +65,11 @@ class Comments(Resource):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self._controller = ApiController()
+        self._controller = RessourceController()
 
     def get(self, id: int) -> Response:
         """Retrieves one comment from the database"""
-        comment = self._controller.get_one_comment(id)
+        comment = self._controller.get_comment(id)
         return jsonify(comment)
 
     @comment_ns.doc(body=update_comment_model)
