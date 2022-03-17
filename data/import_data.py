@@ -62,8 +62,8 @@ def store(file_characters: str, file_episodes: str):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument("--characters", "-c",
-                        default="rick_morty-characters_v1.json")
+                        default="data/rick_morty-characters_v1.json")
     parser.add_argument("--episodes", "-e",
-                        default="rick_morty-episodes_v1.json")
+                        default="data/rick_morty-episodes_v1.json")
     args = parser.parse_args()
     store(args.characters, args.episodes)

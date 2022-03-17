@@ -18,11 +18,10 @@ class ApiDao(abc.ABC):
             query = query.limit(page_size)
             if page:
                 query = query.offset(page * page_size)
-        return self.model.query.all()
+        return query.all()
 
     def insert(self, **kwargs):
         new = self.model(**kwargs)
-        print(new)
         db.session.add(new)
         db.session.commit()
 

@@ -30,13 +30,12 @@ python manager.py db upgrade
 ### Import data
 
 ```bash
-cd data
 # With, in the same folder, the files rick_morty-characters_v1.json 
 # and rick_morty-episodes_v1.json .
-python import_data.py 
+python data/import_data.py 
 
 # With another files.
-python import_data.py -c characters.json -e episodes.json
+python data/import_data.py -c characters.json -e episodes.json
 ```
 
 ### Unit tests

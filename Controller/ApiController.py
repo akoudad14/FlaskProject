@@ -8,7 +8,7 @@ from Service.EpisodeService import EpisodeService
 
 class ApiController(abc.ABC):
 
-    def get_all_characters(self, start: int = 1, limit: int = None) -> list:
+    def get_characters(self, start: int = 1, limit: int = None) -> list:
         """Retrieves characters from the database."""
         character_service = CharacterService()
         return character_service.get_objects(start, limit)

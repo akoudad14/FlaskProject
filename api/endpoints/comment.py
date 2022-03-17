@@ -7,7 +7,7 @@ from Controller.ApiController import ApiController
 
 comment_ns = api.namespace('comments')
 
-insert_comment_model = comment_ns.model('Comment', {
+insert_comment_model = comment_ns.model('Comment insert', {
     'comment': fields.String(
         required=True,
         description='The comment to save.'),
@@ -18,11 +18,15 @@ insert_comment_model = comment_ns.model('Comment', {
 })
 
 
-update_comment_model = comment_ns.model('Comment', {
+update_comment_model = comment_ns.model('Comment update', {
     'comment': fields.String(
         required=True,
         description='The comment to save.')
 })
+
+parser = api.parser()
+parser.add_argument('start', type=int)
+parser.add_argument('limit', type=int)
 
 
 @comment_ns.route('/')
@@ -32,12 +36,13 @@ class Comments(Resource):
         super().__init__(*args, **kwargs)
         self._controller = ApiController()
 
+    @api.expect(parser)
     def get(self) -> Response:
-        """Retrieves all comments from the database"""
-        start = int(request.args.get('start'), 1)
+        """Retrieves comments from the database."""
+        start = int(request.args.get('start', 0))
         try:
             limit = int(request.args.get('limit'))
-        except KeyError:
+        except TypeError:
             limit = None
         comments = self._controller.get_comments(start, limit)
         return jsonify(comments)
@@ -61,7 +66,7 @@ class Comments(Resource):
         comment = self._controller.get_one_comment(id)
         return jsonify(comment)
 
-    @api.doc(body=update_comment_model)
+    @comment_ns.doc(body=update_comment_model)
     def put(self, id: int) -> Response:
         self._controller.update_comment(id, request.json)
         return Response('Comment updated', 204)
