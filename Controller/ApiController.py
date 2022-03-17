@@ -43,16 +43,6 @@ class ApiController(abc.ABC):
 
     def update_comment(self, comment_id: int, comment_dict: dict):
         comment_service = CommentService()
-        if 'character_id' in comment_dict:
-            character_id = comment_dict.pop('character_id')
-            character_service = CharacterService()
-            character = character_service.get_one(character_id, dump=False)
-            comment_dict['character'] = [character]
-        if 'episode_id' in comment_dict:
-            episode_id = comment_dict.pop('episode_id')
-            episode_service = EpisodeService()
-            episode = episode_service.get_one(episode_id, dump=False)
-            comment_dict['episode'] = [episode]
         comment_service.update(comment_id, **comment_dict)
 
     def delete_comment(self, comment_id: int):

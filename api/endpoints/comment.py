@@ -7,7 +7,7 @@ from Controller.ApiController import ApiController
 
 comment_ns = api.namespace('comments')
 
-comment_model = comment_ns.model('Comment', {
+insert_comment_model = comment_ns.model('Comment', {
     'comment': fields.String(
         required=True,
         description='The comment to save.'),
@@ -15,6 +15,13 @@ comment_model = comment_ns.model('Comment', {
         description=r"Character id to associate the comment with."),
     'episode_id': fields.Integer(
         description=r"Episode id to associate the comment with.")
+})
+
+
+update_comment_model = comment_ns.model('Comment', {
+    'comment': fields.String(
+        required=True,
+        description='The comment to save.')
 })
 
 
@@ -30,7 +37,7 @@ class Comments(Resource):
         comments = self._controller.get_all_comments()
         return jsonify(comments)
 
-    @comment_ns.doc(body=comment_model)
+    @comment_ns.doc(body=insert_comment_model)
     def post(self) -> Response:
         """Creates comment in the database."""
         self._controller.add_comment(request.json)
@@ -49,7 +56,7 @@ class Comments(Resource):
         comment = self._controller.get_one_comment(id)
         return jsonify(comment)
 
-    @api.doc(body=comment_model)
+    @api.doc(body=update_comment_model)
     def put(self, id: int) -> Response:
         self._controller.update_comment(id, request.json)
         return Response('Comment updated', 204)
