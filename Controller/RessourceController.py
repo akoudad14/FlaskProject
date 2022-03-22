@@ -1,5 +1,7 @@
 
 import abc
+import csv
+from io import StringIO
 
 from database.schema.CharacterSchema import CharacterSchema
 from database.schema.CommentSchema import CommentSchema
@@ -40,18 +42,22 @@ class RessourceController(abc.ABC):
         comments = comment_service.get_comments(start, limit, **filters)
         return [comment_schema.dump(comment) for comment in comments]
 
+    def get_comments_csv(self):
+        """Retrieves all comments from the database."""
+        comments = self.get_comments()
+        si = StringIO()
+        cw = csv.writer(si)
+        lines = []
+        lines.append(['id', 'comment', 'character_id', 'episode_id'])
+        for comment in comments:
+            line = [comment['id'], comment['comment'], comment['character']['id'],
+                    comment['episode']['id']]
+            lines.append(line)
+        cw.writerows(lines)
+        return si
+
     def add_comment(self, values: dict):
         comment_service = CommentService()
-        if 'character_id' in values:
-            character_id = values.pop('character_id')
-            character_service = CharacterService()
-            character = character_service.get_character(character_id)
-            values['characters'] = [character]
-        if 'episode_id' in values:
-            episode_id = values.pop('episode_id')
-            episode_service = EpisodeService()
-            episode = episode_service.get_episode(episode_id)
-            values['episodes'] = [episode]
         comment_service.add_comment(values)
 
     def get_comment(self, comment_id: int) -> str:

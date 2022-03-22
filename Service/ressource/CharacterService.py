@@ -1,13 +1,8 @@
 
-from database.schema.CharacterSchema import CharacterSchema
 from Service.ressource.RessourceService import RessourceService
 
 
 class CharacterService(RessourceService):
-
-    @property
-    def schema(self):
-        return CharacterSchema()
 
     def get_characters(
             self,

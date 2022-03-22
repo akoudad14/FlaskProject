@@ -51,12 +51,10 @@ class RessourceDao(abc.ABC):
         query = Comment.query
         if 'episode_ids' in filters:
             episode_ids = filters.pop('episode_ids')
-            query = query.join(Comment.episodes) \
-                .filter(Episode.id.in_(episode_ids))
+            query.filter(Comment.episode_id.in_(episode_ids))
         if 'character_ids' in filters:
             character_ids = filters.pop('character_ids')
-            query = query.join(Comment.characters) \
-                .filter(Character.id.in_(character_ids))
+            query.filter(Comment.character_id.in_(character_ids))
         query = query.filter_by(**filters)
         if page_size:
             query = query.limit(page_size)

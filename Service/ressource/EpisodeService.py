@@ -1,13 +1,8 @@
 
-from database.schema.EpisodeSchema import EpisodeSchema
 from Service.ressource.RessourceService import RessourceService
 
 
 class EpisodeService(RessourceService):
-
-    @property
-    def schema(self):
-        return EpisodeSchema()
 
     def get_episodes(self) -> list:
         """Retrieves episodes from the database."""

@@ -1,5 +1,5 @@
 
-from flask import jsonify, Response, request
+from flask import jsonify, Response, request, make_response
 from flask_restplus import Resource, fields
 
 from api.api import api
@@ -29,6 +29,8 @@ parser = api.parser()
 parser.add_argument('start', type=int)
 parser.add_argument('limit', type=int)
 parser.add_argument('comment', type=str)
+parser.add_argument('character_ids', type=int, action='append')
+parser.add_argument('episode_ids', type=int, action='append')
 
 
 @comment_ns.route('/')
@@ -86,3 +88,20 @@ class Comments(Resource):
     def delete(self, id: int) -> Response:
         self._controller.delete_comment(id)
         return Response('Comment deleted', 204)
+
+
+@comment_ns.route('/csv')
+class CommentCsv(Resource):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._controller = RessourceController()
+
+    @token_required
+    def get(self) -> Response:
+        si = self._controller.get_comments_csv()
+        output = make_response(si.getvalue())
+        output.headers[
+            "Content-Disposition"] = "attachment; filename=export.csv"
+        output.headers["Content-type"] = "text/csv"
+        return output

@@ -1,13 +1,8 @@
 
-from database.schema.CommentSchema import CommentSchema
 from Service.ressource.RessourceService import RessourceService
 
 
 class CommentService(RessourceService):
-
-    @property
-    def schema(self):
-        return CommentSchema()
 
     def get_comments(
             self,
@@ -15,8 +10,7 @@ class CommentService(RessourceService):
             limit: int = None,
             **filters) -> list:
         """Retrieves characters from the database."""
-        objects = self.dao.get_comments(start, limit, **filters)
-        return [self.schema.dump(obj) for obj in objects]
+        return self.dao.get_comments(start, limit, **filters)
 
     def add_comment(self, values):
         self.dao.insert_comment(**values)
