@@ -11,8 +11,7 @@ class UserService:
 
     def get_users(self) -> list:
         """Retrieves users from the database."""
-        objects = self.dao.get_users()
-        return [self.schema.dump(obj) for obj in objects]
+        return self.dao.get_users()
 
     def add_user(self, **values):
         """Inserts user to the database.

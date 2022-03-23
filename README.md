@@ -41,7 +41,7 @@ python data/import_data.py -c characters.json -e episodes.json
 ### Unit tests
 
 ```bash
-python -m unittest discover tests
+python -m pytest tests/
 ```
 
 ### Run API server

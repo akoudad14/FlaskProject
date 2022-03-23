@@ -80,10 +80,17 @@ class RessourceController(abc.ABC):
         cw = csv.writer(si)
         lines = [['id', 'comment', 'character_id', 'episode_id']]
         for comment in comments:
-            line = [comment['id'],
-                    comment['comment'],
-                    comment['character']['id'],
-                    comment['episode']['id']]
+            comment_id = comment['id']
+            comment_str = comment['comment']
+            if comment['character'] is not None:
+                character_id = comment['character']['id']
+            else:
+                character_id = None
+            if comment['episode'] is not None:
+                episode_id = comment['episode']['id']
+            else:
+                episode_id = None
+            line = [comment_id, comment_str, character_id, episode_id]
             lines.append(line)
         cw.writerows(lines)
         return si
