@@ -109,7 +109,7 @@ class CommentCsv(Resource):
 
     @auth.token_required
     def get(self) -> Response:
-        """Returns comments from the database to a csv file."""
+        """Retrieves comments from the database to a csv file."""
         si = self._controller.get_comments_csv()
         output = flask.make_response(si.getvalue())
         output.headers[

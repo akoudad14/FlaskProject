@@ -17,7 +17,7 @@ APP_SETTINGS=config.DevelopmentConfig
 DATABASE_URL=sqlite:///app.db
 ```
 
-For create the database, launch these commands:
+TO create the database, run these commands:
 
 ```bash
 python manager.py db init
@@ -50,6 +50,28 @@ python -m unittest discover tests
 python app.py
 ```
 
-Now you can access to http://127.0.0.1:5000/api/doc and see all possible calls.
+## Documentation for API Endpoints
+
+All URIs are relative to *http://127.0.0.1:5000/api*
+
+Class | HTTP request | Arguments | Payload | Description
+------------ | ------------- | ------------- | ------------- | ------------- 
+*RoutingApi* | **GET** /doc | | | Swagger UI documentation
+*LoginUser* | **POST** /auth/login | | {"email": "string", "password": "string"} | Logs the user
+*LogoutUser* | **POST** /auth/logout | | | Logout the user
+*User* | **GET** /users | | | Retrieves users.
+*User* | **POST** /users | | {"name": "string", "email": "string", "password": "string"} | Creates user
+*Users* | **GET** /users/{user_id}  | | | Retrieves one user
+*Users* | **PUT** /users/{user_id} | | {"name": "string", "email": "string", "password": "string"} | Modifies a user
+*Users* | **DELETE** /users/{user_id} | | | Deletes a user
+*Character* | **GET** /characters | start, limit, name, status, species, type, gender, episode_ids, comment_ids | | Retrieves characters. Can be paginated and filtered by character attributes.
+*Episode* | **GET** /episodes | | | Retrieves all episodes
+*Comment* | **GET** /comments | start, limit, comment, character_id, episode_id | | Retrieves characters. Can be paginated and filtered by comment attributes.
+*Comment* | **POST** /comments | | {"comment": "string", "character_id": int, "episode_id": int} | Creates comment
+*Comments* | **GET** /comments/{comment_id}  | | | Retrieves one comment
+*Comments* | **PUT** /comments/{comment_id} | | {"comment": "string"} | Modifies a comment
+*Comments* | **DELETE** /comments/{comment_id} | | | Deletes a comment
+*CommentCsv* | **GET** /comments/csv | | | Retrieves comments from the database to a csv file
+
 
 ![alt text](jellysmack_api_swagger.png)
