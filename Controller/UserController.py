@@ -40,5 +40,3 @@ class UserController:
     def delete_user(self, user_id: int):
         service = UserService()
         service.delete_user(user_id)
-
-

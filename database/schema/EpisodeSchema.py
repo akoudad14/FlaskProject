@@ -9,4 +9,3 @@ class EpisodeSchema(ma.SQLAlchemyAutoSchema):
 
     comments = ma.Nested("CommentSchema", many=True, only=('id',))
     characters = ma.Nested("CharacterSchema", many=True, only=('id',))
-

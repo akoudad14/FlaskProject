@@ -47,10 +47,11 @@ class RessourceController(abc.ABC):
         comments = self.get_comments()
         si = StringIO()
         cw = csv.writer(si)
-        lines = []
-        lines.append(['id', 'comment', 'character_id', 'episode_id'])
+        lines = [['id', 'comment', 'character_id', 'episode_id']]
         for comment in comments:
-            line = [comment['id'], comment['comment'], comment['character']['id'],
+            line = [comment['id'],
+                    comment['comment'],
+                    comment['character']['id'],
                     comment['episode']['id']]
             lines.append(line)
         cw.writerows(lines)
