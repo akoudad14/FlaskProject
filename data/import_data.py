@@ -15,9 +15,12 @@ db.init_app(app)
 def create_characters(file_characters: str, episodes: list):
     """Creates characters based on the Character model.
 
-    :param file_characters: File containing characters (JSON format).
-    :param episodes: List of Episodes (based on Episode's model).
-    :return: List of Characters.
+    Args:
+        file_characters: File containing characters (JSON format).
+        episodes: List of Episodes (based on Episode's model).
+
+    Returns:
+         List of Characters.
     """
     with open(file_characters, 'r') as fp:
         characters_raw = json.load(fp)
@@ -34,8 +37,11 @@ def create_characters(file_characters: str, episodes: list):
 def create_episodes(file_episodes: str) -> list:
     """Creates episodes based on the Episode model.
 
-    :param file_episodes: File containing episodes (JSON format).
-    :return: List of Episodes.
+    Args:
+        file_episodes: File containing episodes (JSON format).
+
+    Returns:
+         List of Episodes.
     """
     with open(file_episodes, 'r') as fp:
         episodes_raw = json.load(fp)
@@ -50,8 +56,9 @@ def create_episodes(file_episodes: str) -> list:
 def store(file_characters: str, file_episodes: str):
     """Stores characters and episodes.
 
-    :param file_characters: File containing characters (JSON format).
-    :param file_episodes: File containing episodes (JSON format).
+    Args:
+        file_characters: File containing characters (JSON format).
+        file_episodes: File containing episodes (JSON format).
     """
     episodes = create_episodes(file_episodes)
     characters = create_characters(file_characters, episodes)

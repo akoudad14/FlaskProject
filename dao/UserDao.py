@@ -15,11 +15,11 @@ class UserDao(abc.ABC):
         db.session.add(new)
         db.session.commit()
 
-    def get_user(self, comment_id: int):
-        return User.query.filter(User.id == comment_id).first_or_404()
+    def get_user(self, user_id: int):
+        return User.query.filter(User.id == user_id).first_or_404()
 
     def get_user_by_filter(self, **kwargs):
-        return User.query.filter_by(**kwargs).first()
+        return User.query.filter_by(**kwargs).first_or_404()
 
     def update_user(self, user_id: int, **kwargs):
         obj = self.get_user(user_id)

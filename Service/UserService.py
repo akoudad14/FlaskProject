@@ -10,21 +10,49 @@ class UserService:
         self.schema = UserSchema()
 
     def get_users(self) -> list:
-        """Retrieves characters from the database."""
+        """Retrieves users from the database."""
         objects = self.dao.get_users()
         return [self.schema.dump(obj) for obj in objects]
 
     def add_user(self, **values):
+        """Inserts user to the database.
+
+        Args:
+            values: User values such as name, email, password.
+        """
         self.dao.add_user(**values)
 
-    def get_user(self, character_id: int):
-        return self.dao.get_user(character_id)
+    def get_user(self, user_id: int):
+        """Retrieves one user from the database based on user ID.
 
-    def get_user_by_filter(self, **kwargs):
-        return self.dao.get_user_by_filter(**kwargs)
+        Args:
+            user_id: User ID.
+        """
+        return self.dao.get_user(user_id)
 
-    def update_user(self, user_id: int, **kwargs):
-        self.dao.update_user(user_id, **kwargs)
+    def get_user_by_filter(self, **filters):
+        """Retrieves one user from the database based on filters.
+
+        Args:
+            filters: Used for filters the users.
+            It's possible to filter on all users attributes such as name,
+            email, password.
+        """
+        return self.dao.get_user_by_filter(**filters)
+
+    def update_user(self, user_id: int, **values):
+        """Modifies a user to the database.
+
+        Args:
+            user_id: User ID.
+            values: New user values such as name, email, password.
+        """
+        self.dao.update_user(user_id, **values)
 
     def delete_user(self, user_id: int):
+        """Deletes a user to the database.
+
+        Args:
+            user_id: User ID.
+        """
         self.dao.delete_user(user_id)

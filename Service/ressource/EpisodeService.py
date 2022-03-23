@@ -9,4 +9,9 @@ class EpisodeService(RessourceService):
         return self.dao.get_episodes()
 
     def get_episode(self, episode_id: int):
+        """Retrieves episode from the database based on episode ID.
+
+        Args:
+            episode_id: Episode ID.
+        """
         return self.dao.get_episode(episode_id)

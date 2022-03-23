@@ -1,9 +1,10 @@
 
-from flask import jsonify, Response
+import flask
+from flask import Response
 from flask_restplus import Resource
 
 from api.api import api
-from api.endpoints.auth import token_required
+import api.endpoints.auth as auth
 from Controller.RessourceController import RessourceController
 
 character_ns = api.namespace('characters')
@@ -28,7 +29,7 @@ class Character(Resource):
         self._controller = RessourceController()
 
     @api.expect(parser)
-    @token_required
+    @auth.token_required
     def get(self) -> Response:
         """Retrieves characters from the database."""
         filters = {k: v for k, v in parser.parse_args().items()
@@ -42,4 +43,4 @@ class Character(Resource):
         except KeyError:
             limit = None
         characters = self._controller.get_characters(start, limit, **filters)
-        return jsonify(characters)
+        return flask.jsonify(characters)

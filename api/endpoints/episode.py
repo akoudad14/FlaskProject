@@ -1,9 +1,10 @@
 
-from flask import jsonify, Response
+import flask
+from flask import Response
 from flask_restplus import Resource
 
 from api.api import api
-from api.endpoints.auth import token_required
+import api.endpoints.auth as auth
 from Controller.RessourceController import RessourceController
 
 episode_ns = api.namespace('episodes')
@@ -16,8 +17,8 @@ class Episode(Resource):
         super().__init__(*args, **kwargs)
         self._controller = RessourceController()
 
-    @token_required
+    @auth.token_required
     def get(self) -> Response:
-        """Retrieves all episodes from the database"""
+        """Retrieves all episodes from the database."""
         episodes = self._controller.get_episodes()
-        return jsonify(episodes)
+        return flask.jsonify(episodes)

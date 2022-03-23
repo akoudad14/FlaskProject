@@ -20,6 +20,7 @@ app.config.from_object(env_config)
 
 
 def initialize_app(flask_app):
+    """Inits the flask application."""
     blueprint = Blueprint('api', __name__, url_prefix='/api')
     api.init_app(blueprint)
     api.add_namespace(auth_ns)
