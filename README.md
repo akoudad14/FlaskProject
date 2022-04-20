@@ -1,4 +1,4 @@
-# JELLYSMACK test
+# Flask Project
 
 ## Installation
 
